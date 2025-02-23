@@ -198,9 +198,22 @@ services:
       test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
       interval: 5s
       start_period: 10s
+      
+  redis_1:
+    image: "redis:latest"
+    container_name: redis_1
+    ports:
+      - "6379"
+    volumes:
+      - redis_1_data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.15
 
-  mongo-sharding-repl:
-    container_name: mongo-sharding-repl
+  sharding-repl-cache:
+    container_name: sharding-repl-cache
     build: 
       context: api_app
       dockerfile: Dockerfile
@@ -233,3 +246,4 @@ volumes:
   shard1-repl2-data:
   shard2-repl1-data:
   shard2-repl2-data:
+  redis_1_data: {}
