@@ -52,7 +52,7 @@ services:
       start_period: 10s
       
   shard2:
-    image: mongo:latest
+    image: dh-mirror.gitverse.ru/mongo:latest
     container_name: shard2
     restart: always
     ports:
